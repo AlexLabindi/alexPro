@@ -1,11 +1,9 @@
-
-
 services:
   alexpro-db:
     container_name: alexpro-db-container
     image: postgres:15-alpine
     ports:
-      - "5433:5432"
+      - "5434:5432"
     restart: always
     environment:
       POSTGRES_DB: alexpro_db
@@ -17,5 +15,8 @@ services:
       - postgres_alexpro_data:/var/lib/postgresql/data
 
 networks:
-  unbrella-network:
+  pro-network:
     driver: bridge
+
+volumes:
+  postgres_alexpro_data:

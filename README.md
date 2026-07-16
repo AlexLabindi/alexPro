@@ -71,3 +71,45 @@ Annotazione,Dove si usa,A cosa serve
 @PathVariable,Dentro i parametri dei metodi,Cattura variabili dal path dell'URL (es. /{id}).
 @RequestParam,Dentro i parametri dei metodi,Cattura parametri della query string (es. ?stato=true).
 @RequestBody,Dentro i parametri dei metodi,Mappa il JSON inviato nel corpo della richiesta HTTP direttamente in un oggetto Java.
+
+docker-compose al nuovo avvio inserire una nuova porta non usata es:
+    ports:
+      - "5434:5432"  amumentare il primo numero  5435....per trovare una porta libera
+ 
+e modificare il application.yaml con 
+  datasource:
+    url: jdbc:postgresql://localhost:5434/alexpro_db   // modificare corrispondente num del localhost con ports 
+ 
+quindi in teminale: 
+docker compose down -v
+docker compose up -d  
+poi fare run dell'applicazione backend
+cd "package del frontend"
+npm run dev
+
+Server PostgreSQL (istanza in Docker su localhost:5432)
+   └── Connessione (in IntelliJ: Data Source "alexlabindoPro@localhost")
+        ├── Database 1: postgres (database predefinito di sistema)
+        │    └── Schema: public
+        │         └── (nessuna tabella tua)
+        │
+        └── Database 2: alexpro_db (il tuo database applicativo)
+             └── Schema: public
+                  └── Tabella: prodotti  <-- (I tuoi dati!)
+
+1. Istanza / Server di Database (Database Server / Instance)
+"È il processo software principale (nel nostro caso PostgreSQL v15 in esecuzione dentro un container Docker) che ascolta sulla porta 5432 ed è in grado di gestire più database indipendenti."
+
+2. Sorgente Dati / Connessione (Data Source)
+"È la configurazione creata nell'IDE (IntelliJ) o nell'applicazione Java che contiene le credenziali (host, porta, user, password) per stabilire un canale di comunicazione con l'istanza PostgreSQL."
+
+3. Database (o "Catalogo")
+"In PostgreSQL, ogni Istanza contiene più Database distinti e totalmente isolati tra loro. Di default PostgreSQL crea un database di servizio chiamato postgres. Noi abbiamo configurato l'applicazione per connettersi al nostro database dedicato alexpro_db."
+
+4. Schema (public)
+"All'interno di ogni database risiedono gli Schemi, che sono i veri 'namespace' o contenitori logici delle tabelle. Di default PostgreSQL assegna ad ogni database uno schema chiamato public."
+
+5. Tabella (prodotti)
+"È la struttura dati fisica creata da Hibernate/JPA a partire dalla classe @Entity Prodotto."
+
+![](C:\Users\39347\OneDrive\Immagini\Catture di schermata\Screenshot (83).png)
