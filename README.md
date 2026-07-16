@@ -113,3 +113,9 @@ Server PostgreSQL (istanza in Docker su localhost:5432)
 "È la struttura dati fisica creata da Hibernate/JPA a partire dalla classe @Entity Prodotto."
 
 ![](C:\Users\39347\OneDrive\Immagini\Catture di schermata\Screenshot (83).png)
+
+Abbiamo containerizzato un'istanza di PostgreSQL 15 tramite Docker Compose sulla porta 5432.
+
+All'interno dell'istanza abbiamo definito un database dedicato chiamato alexpro_db.
+
+In Spring Boot, tramite Spring Data JPA e Hibernate, l'applicazione si connette a questo specifico database. All'avvio dell'applicazione, tramite la proprietà ddl-auto: create-drop, Hibernate genera automaticamente la tabella prodotti all'interno dello schema public di alexpro_db partendo dalle nostre Entity Java.
