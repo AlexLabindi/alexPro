@@ -36,3 +36,26 @@ alexPro/
     │   ├── App.jsx                # Componente Root con fetch e UI base
     │   └── index.css              # Direttive Tailwind CSS v4
     └── package.json               # Dipendenze Frontend
+
+
+PS C:\Users\39347\OneDrive\Documenti\ProgettoEsame\AlexLabindiPro> git remote remove origin
+warning: more than one branch.main.remote
+warning: branch.main.remote has multiple values
+warning: branch.main.merge has multiple values
+PS C:\Users\39347\OneDrive\Documenti\ProgettoEsame\AlexLabindiPro> git remote add origin https://github.com/AlexLabindi/alexPro.git
+PS C:\Users\39347\OneDrive\Documenti\ProgettoEsame\AlexLabindiPro> git push -u origin main --force
+Enumerating objects: 184, done.
+Counting objects: 100% (184/184), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (139/139), done.
+Writing objects: 100% (184/184), 69.79 KiB | 362.00 KiB/s, done.
+Total 184 (delta 52), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (52/52), done.
+To https://github.com/AlexLabindi/alexPro.git
+ * [new branch]      main -> main
+warning: branch.main.remote has multiple values
+warning: branch.main.merge has multiple values
+branch 'main' set up to track 'origin/main'.
+PS C:\Users\39347\OneDrive\Documenti\ProgettoEsame\AlexLabindiPro> git remote -v
+origin  https://github.com/AlexLabindi/alexPro.git (fetch)
+origin  https://github.com/AlexLabindi/alexPro.git (push)
