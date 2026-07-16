@@ -59,3 +59,15 @@ branch 'main' set up to track 'origin/main'.
 PS C:\Users\39347\OneDrive\Documenti\ProgettoEsame\AlexLabindiPro> git remote -v
 origin  https://github.com/AlexLabindi/alexPro.git (fetch)
 origin  https://github.com/AlexLabindi/alexPro.git (push)
+
+Annotazione,Dove si usa,A cosa serve
+@Entity,Sopra la classe Model,Dice a Spring che la classe è una tabella del Database.
+@Id,Sopra un campo del Model,Definisce la Chiave Primaria.
+@GeneratedValue,Sopra l'ID,Gestisce l'auto-incremento dell'ID (IDENTITY).
+@Autowired,Sopra le variabili nei Service/Controller,Inietta le dipendenze automaticamente.
+@RestController,Sopra la classe Controller,Mappa la classe come gestione API REST (restituisce JSON).
+@RequestMapping,Sopra la classe Controller,Imposta la rotta base (es. /api/prodotti).
+@CrossOrigin,Sopra il Controller,Risolve il blocco CORS permettendo chiamate da React (localhost:5173).
+@PathVariable,Dentro i parametri dei metodi,Cattura variabili dal path dell'URL (es. /{id}).
+@RequestParam,Dentro i parametri dei metodi,Cattura parametri della query string (es. ?stato=true).
+@RequestBody,Dentro i parametri dei metodi,Mappa il JSON inviato nel corpo della richiesta HTTP direttamente in un oggetto Java.
