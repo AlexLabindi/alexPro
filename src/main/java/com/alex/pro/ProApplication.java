@@ -45,3 +45,28 @@ public class ProApplication {
         };
     }
 }
+/*@SpringBootApplication
+public class ProApplication {
+
+    public static void main(String[] args) {
+        // 1. Avviamo Spring e salviamo il contesto dell'applicazione in una variabile
+        ConfigurableApplicationContext context = SpringApplication.run(ProApplication.class, args);
+
+        // 2. Chiediamo a Spring di darci il Bean della nostra Repository
+        ProdottoRepository repository = context.getBean(ProdottoRepository.class);
+
+        // 3. Popoliamo il database con i new direttamente nel main!
+        if (repository.count() == 0) {
+            System.out.println("🌱 Popolamento iniziale del DB in corso...");
+
+            Prodotto p1 = new Prodotto(null, "Evoluzione Web con React", 29.99, 15, true);
+            Prodotto p2 = new Prodotto(null, "Guida Pratica a Spring Boot 3", 34.50, 8, true);
+            Prodotto p3 = new Prodotto(null, "Database PostgreSQL da Zero", 22.00, 0, false);
+            Prodotto p4 = new Prodotto(null, "Masterclass Tailwind CSS v4", 19.90, 25, true);
+
+            repository.saveAll(List.of(p1, p2, p3, p4));
+
+            System.out.println("✅ Inseriti " + repository.count() + " prodotti di test!");
+        }
+    }
+}*/
