@@ -1,5 +1,6 @@
 package com.alex.pro.service;
 
+import com.alex.pro.exception.ResourceNotFoundException;
 import com.alex.pro.model.Prodotto;
 import com.alex.pro.repository.ProdottoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ public class ProdottoService {
     }
 
     public Optional<Prodotto> getProdottoById(Long id) {
-        return prodottoRepository.findById(id);
+        return Optional.of(prodottoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Prodotto non trovato con id: " + id)));
     }
 
     // ----------------------------------------------------------------------------------
