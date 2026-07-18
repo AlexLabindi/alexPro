@@ -34,6 +34,10 @@ public class Prodotto {
 
     private Boolean disponibile = true; // Flag di stato con valore di default a true
 
+    @ManyToOne(fetch = FetchType.LAZY) // LAZY carica la categoria solo se esplicitamente richiesta
+    @JoinColumn(name = "categoria_id", nullable = true) // Crea la Foreign Key nel DB
+    private Categoria categoria;
+
     // ==================================================================================
     // 🛠️ CASI DI MODIFICA ALL'ESAME:
     //
