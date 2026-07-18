@@ -1,6 +1,8 @@
 package com.alex.pro.repository;
 
 import com.alex.pro.model.Prodotto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +15,9 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
 
     // Trova tutti i prodotti dove il campo 'disponibile' corrisponde al parametro passato
     List<Prodotto> findByDisponibile(Boolean disponibile);
+
+    // Spring Data JPA capisce automaticamente la query e gestisce il calcolo del "Total Elements" per la paginazione
+    Page<Prodotto> findByNomeContainingIgnoreCase(String nome, Pageable pageable);
 
     // ==================================================================================
     // 🛠️ CASI DI MODIFICA ALL'ESAME:

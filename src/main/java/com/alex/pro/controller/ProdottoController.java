@@ -3,6 +3,10 @@ package com.alex.pro.controller;
 import com.alex.pro.model.Prodotto;
 import com.alex.pro.service.ProdottoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +20,35 @@ public class ProdottoController {
 
     @Autowired
     private ProdottoService prodottoService;
+
+    public ProdottoController(ProdottoService prodottoService) {
+        this.prodottoService = prodottoService;
+    }
+
+    /**
+     * GET avanzata con Paginazione, Filtro sul nome e Ordinamento.
+     * Esempio: /api/prodotti/search?page=0&size=5&sortBy=prezzo&direction=DESC&nome=tastiera
+     */
+    @GetMapping("/search")
+    public ResponseEntity<Page<Prodotto>> cercaProdottiPaginati(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "ASC") String direction,
+            @RequestParam(required = false) String nome
+    ) {
+        // Creiamo l'oggetto Sort in base alla direzione scelta (ASC o DESC)
+        Sort sort = direction.equalsIgnoreCase("DESC") ?
+                Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+
+        // Creiamo l'oggetto Pageable richiesto da Spring Data JPA
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        // Chiamiamo il service passando il filtro e la paginazione
+        Page<Prodotto> prodotti = prodottoService.ricercaAvanzata(nome, pageable);
+
+        return ResponseEntity.ok(prodotti);
+    }
 
     // ----------------------------------------------------------------------------------
     // 1. GET ALL: Restituisce la lista di tutti i prodotti (HTTP GET)

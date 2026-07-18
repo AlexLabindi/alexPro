@@ -4,6 +4,8 @@ import com.alex.pro.exception.ResourceNotFoundException;
 import com.alex.pro.model.Prodotto;
 import com.alex.pro.repository.ProdottoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,19 @@ public class ProdottoService {
     @Autowired // 💉 Inietta l'istanza del Repository generata automaticamente da Spring
     private ProdottoRepository prodottoRepository;
 
+    public ProdottoService(ProdottoRepository prodottoRepository) {
+        this.prodottoRepository = prodottoRepository;
+    }
+
+
+    public Page<Prodotto> ricercaAvanzata(String nome, Pageable pageable) {
+        // Se il parametro di ricerca è vuoto o nullo, restituisce tutto ma paginato
+        if (nome == null || nome.trim().isEmpty()) {
+            return prodottoRepository.findAll(pageable);
+        }
+        // Altrimenti esegue il filtro
+        return prodottoRepository.findByNomeContainingIgnoreCase(nome, pageable);
+    }
     // ----------------------------------------------------------------------------------
     // READ (Lettura globale e per ID)
     // ----------------------------------------------------------------------------------

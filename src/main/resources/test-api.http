@@ -47,3 +47,7 @@ Accept: application/json
 ### 5. Elimina un prodotto esistente (DELETE)
 DELETE http://localhost:8090/api/prodotti/1
 Accept: application/json
+
+### 6. Ricerca Avanzata: Pagina 0, 2 elementi per pagina, ordinati per prezzo Decrescente
+GET http://localhost:8090/api/prodotti/search?page=0&size=2&sortBy=prezzo&direction=DESC
+Accept: application/json
