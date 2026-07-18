@@ -38,6 +38,10 @@ public class Prodotto {
     @JoinColumn(name = "categoria_id", nullable = true) // Crea la Foreign Key nel DB
     private Categoria categoria;
 
+    public boolean isDisponibile() {
+        return disponibile;
+    }
+
     // ==================================================================================
     // 🛠️ CASI DI MODIFICA ALL'ESAME:
     //

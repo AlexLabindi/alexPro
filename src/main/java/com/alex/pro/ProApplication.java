@@ -32,7 +32,7 @@ public class ProApplication {
             if (repository.count() == 0) {
                 System.out.println("🌱 Popolamento iniziale del Database in corso...");
 
-                Prodotto p1 = new Prodotto(null, "Evoluzione Web con React", 29.99, 15, true);
+                Prodotto p1 = new Prodotto(null, "Evoluzione Web con React", 29.99, 15, true,);
                 Prodotto p2 = new Prodotto(null, "Guida Pratica a Spring Boot 3", 34.50, 8, true);
                 Prodotto p3 = new Prodotto(null, "Database PostgreSQL da Zero", 22.00, 0, false);
                 Prodotto p4 = new Prodotto(null, "Masterclass Tailwind CSS v4", 19.90, 25, true);
