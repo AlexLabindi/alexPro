@@ -59,3 +59,63 @@ branch 'main' set up to track 'origin/main'.
 PS C:\Users\39347\OneDrive\Documenti\ProgettoEsame\AlexLabindiPro> git remote -v
 origin  https://github.com/AlexLabindi/alexPro.git (fetch)
 origin  https://github.com/AlexLabindi/alexPro.git (push)
+
+Annotazione,Dove si usa,A cosa serve
+@Entity,Sopra la classe Model,Dice a Spring che la classe è una tabella del Database.
+@Id,Sopra un campo del Model,Definisce la Chiave Primaria.
+@GeneratedValue,Sopra l'ID,Gestisce l'auto-incremento dell'ID (IDENTITY).
+@Autowired,Sopra le variabili nei Service/Controller,Inietta le dipendenze automaticamente.
+@RestController,Sopra la classe Controller,Mappa la classe come gestione API REST (restituisce JSON).
+@RequestMapping,Sopra la classe Controller,Imposta la rotta base (es. /api/prodotti).
+@CrossOrigin,Sopra il Controller,Risolve il blocco CORS permettendo chiamate da React (localhost:5173).
+@PathVariable,Dentro i parametri dei metodi,Cattura variabili dal path dell'URL (es. /{id}).
+@RequestParam,Dentro i parametri dei metodi,Cattura parametri della query string (es. ?stato=true).
+@RequestBody,Dentro i parametri dei metodi,Mappa il JSON inviato nel corpo della richiesta HTTP direttamente in un oggetto Java.
+
+docker-compose al nuovo avvio inserire una nuova porta non usata es:
+    ports:
+      - "5434:5432"  amumentare il primo numero  5435....per trovare una porta libera
+ 
+e modificare il application.yaml con 
+  datasource:
+    url: jdbc:postgresql://localhost:5434/alexpro_db   // modificare corrispondente num del localhost con ports 
+ 
+quindi in teminale: 
+docker compose down -v
+docker compose up -d  
+poi fare run dell'applicazione backend
+cd "package del frontend"
+npm run dev
+
+Server PostgreSQL (istanza in Docker su localhost:5432)
+   └── Connessione (in IntelliJ: Data Source "alexlabindoPro@localhost")
+        ├── Database 1: postgres (database predefinito di sistema)
+        │    └── Schema: public
+        │         └── (nessuna tabella tua)
+        │
+        └── Database 2: alexpro_db (il tuo database applicativo)
+             └── Schema: public
+                  └── Tabella: prodotti  <-- (I tuoi dati!)
+
+1. Istanza / Server di Database (Database Server / Instance)
+"È il processo software principale (nel nostro caso PostgreSQL v15 in esecuzione dentro un container Docker) che ascolta sulla porta 5432 ed è in grado di gestire più database indipendenti."
+
+2. Sorgente Dati / Connessione (Data Source)
+"È la configurazione creata nell'IDE (IntelliJ) o nell'applicazione Java che contiene le credenziali (host, porta, user, password) per stabilire un canale di comunicazione con l'istanza PostgreSQL."
+
+3. Database (o "Catalogo")
+"In PostgreSQL, ogni Istanza contiene più Database distinti e totalmente isolati tra loro. Di default PostgreSQL crea un database di servizio chiamato postgres. Noi abbiamo configurato l'applicazione per connettersi al nostro database dedicato alexpro_db."
+
+4. Schema (public)
+"All'interno di ogni database risiedono gli Schemi, che sono i veri 'namespace' o contenitori logici delle tabelle. Di default PostgreSQL assegna ad ogni database uno schema chiamato public."
+
+5. Tabella (prodotti)
+"È la struttura dati fisica creata da Hibernate/JPA a partire dalla classe @Entity Prodotto."
+
+![](C:\Users\39347\OneDrive\Immagini\Catture di schermata\Screenshot (83).png)
+
+Abbiamo containerizzato un'istanza di PostgreSQL 15 tramite Docker Compose sulla porta 5432.
+
+All'interno dell'istanza abbiamo definito un database dedicato chiamato alexpro_db.
+
+In Spring Boot, tramite Spring Data JPA e Hibernate, l'applicazione si connette a questo specifico database. All'avvio dell'applicazione, tramite la proprietà ddl-auto: create-drop, Hibernate genera automaticamente la tabella prodotti all'interno dello schema public di alexpro_db partendo dalle nostre Entity Java.
