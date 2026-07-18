@@ -1,0 +1,49 @@
+GET http://localhost:8090/api/prodotti/999
+Accept: application/json
+
+### 1. Recupera la lista di tutti i prodotti (GET)
+GET http://localhost:8090/api/prodotti
+Accept: application/json
+
+###
+
+### 2. Crea un nuovo prodotto con successo (POST)
+POST http://localhost:8090/api/prodotti
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nome": "Tastiera Meccanica RGB",
+  "prezzo": 89.99,
+  "quantita": 10,
+  "disponibile": true
+}
+
+###
+
+### 3. Recupera il prodotto appena creato tramite ID (GET)
+# Nota: Assicurati che l'ID esista nel tuo database (es. 1, 2, ecc.)
+GET http://localhost:8090/api/prodotti/1
+Accept: application/json
+
+###
+
+### 4. Test di Errore di Validazione (POST con dati errati)
+# Questo serve per testare il 'MethodArgumentNotValidException' del GlobalExceptionHandler.
+# Inviamo un prezzo negativo o un nome vuoto per far scattare i controlli.
+POST http://localhost:8090/api/prodotti
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nome": "",
+  "prezzo": -5.00,
+  "quantita": 0,
+  "disponibile": true
+}
+
+###
+
+### 5. Elimina un prodotto esistente (DELETE)
+DELETE http://localhost:8090/api/prodotti/1
+Accept: application/json
