@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//@RequiredArgsConstructor ..Genererà il costruttore corretto in automatico per tutti i campi contrassegnati come private final.
 @RestController // ⚙️ Risponde automaticamente serializzando i dati in formato JSON
 @RequestMapping("/api/prodotti") // 🛣️ Prefisso comune delle rotte
 @CrossOrigin(origins = "http://localhost:5173") // 🔌 Indispensabile per evitare blocchi CORS da React
