@@ -1,5 +1,6 @@
 package com.alex.pro.controller;
 
+import com.alex.pro.dto.ProdottoResponseDTO;
 import com.alex.pro.model.Prodotto;
 import com.alex.pro.service.ProdottoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,25 +33,30 @@ public class ProdottoController {
      * Esempio: /api/prodotti/search?page=0&size=5&sortBy=prezzo&direction=DESC&nome=tastiera
      */
     @GetMapping("/search")
-    public ResponseEntity<Page<Prodotto>> cercaProdottiPaginati(
+    public ResponseEntity<Page<ProdottoResponseDTO>> cercaProdottiPaginate(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "ASC") String direction,
             @RequestParam(required = false) String nome
     ) {
-        // Creiamo l'oggetto Sort in base alla direzione scelta (ASC o DESC)
-        Sort sort = direction.equalsIgnoreCase("DESC") ?
-                Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
-
-        // Creiamo l'oggetto Pageable richiesto da Spring Data JPA
+        Sort sort = direction.equalsIgnoreCase("DESC") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        // Chiamiamo il service passando il filtro e la paginazione
-        Page<Prodotto> prodotti = prodottoService.ricercaAvanzata(nome, pageable);
+        // Il service deve restituire una Page di DTO, oppure mappiamo qui:
+        Page<ProdottoResponseDTO> prodottiDTO = prodottoService.ricercaAvanzata(nome, pageable)
+                .map(prodotto -> new ProdottoResponseDTO(
+                        prodotto.getId(),
+                        prodotto.getNome(),
+                        prodotto.getPrezzo(),
+                        prodotto.getQuantita(),
+                        prodotto.isDisponibile(),
+                        prodotto.getCategoria() != null ? prodotto.getCategoria().getNome() : "Nessuna"
+                ));
 
-        return ResponseEntity.ok(prodotti);
+        return ResponseEntity.ok(prodottiDTO);
     }
+
 
     // ----------------------------------------------------------------------------------
     // 1. GET ALL: Restituisce la lista di tutti i prodotti (HTTP GET)
