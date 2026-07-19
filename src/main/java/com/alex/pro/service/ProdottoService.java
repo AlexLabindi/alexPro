@@ -19,18 +19,15 @@ import java.util.Optional;
 public class ProdottoService {
 
 
-    /*
-    @Autowired // 💉 Inietta l'istanza del Repository generata automaticamente da Spring
-    private ProdottoRepository prodottoRepository;
+    // 1. Definiamo entrambi i repository come final
+    private final ProdottoRepository prodottoRepository;
+    private final CategoriaRepository categoriaRepository;
 
-    private CategoriaRepository categoriaRepository;
-
-    public ProdottoService(CategoriaRepository categoriaRepository) {
-        this.categoriaRepository = categoriaRepository;
-    }
-
-    public ProdottoService(ProdottoRepository prodottoRepository) {
+    // 2. UNICO COSTRUTTORE: Spring Boot lo userà in automatico
+    // per iniettare le dipendenze (Dependency Injection tramite costruttore)
+    public ProdottoService(ProdottoRepository prodottoRepository, CategoriaRepository categoriaRepository) {
         this.prodottoRepository = prodottoRepository;
+        this.categoriaRepository = categoriaRepository;
     }
 
 
@@ -144,5 +141,5 @@ public class ProdottoService {
     // ==================================================================================
 
 
-     */
+
 }

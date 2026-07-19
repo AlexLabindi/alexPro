@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 // URL base del backend gestito via Docker/Spring Boot (Porta 8090)
 const API_BASE_URL = 'http://localhost:8090/api/prodotti/search';
@@ -74,11 +74,11 @@ export default function ListaProdotti() {
 
     // --- RENDER COMPONENTE ---
     return (
-        <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+        <div style={{padding: '20px', fontFamily: 'Arial, sans-serif'}}>
             <h2>Gestione Catalogo Prodotti Avanzata</h2>
 
             {/* Pannello dei Filtri di Ricerca */}
-            <div style={{ marginBottom: '20px' }}>
+            <div style={{marginBottom: '20px'}}>
                 <input
                     type="text"
                     placeholder="Cerca prodotto per nome..."
@@ -87,24 +87,29 @@ export default function ListaProdotti() {
                         setTermineRicerca(e.target.value);
                         setPaginaCorrente(0); // Resetta alla pagina 1 quando l'utente digita una ricerca
                     }}
-                    style={{ padding: '8px', width: '300px', marginRight: '10px' }}
+                    style={{padding: '8px', width: '300px', marginRight: '10px'}}
                 />
-                <button onClick={caricaProdotti} style={{ padding: '8px 15px' }}>Aggiorna</button>
+                <button onClick={caricaProdotti} style={{padding: '8px 15px'}}>Aggiorna</button>
             </div>
 
             {/* Gestione degli stati di Loading ed Errore */}
             {loading && <p>Caricamento dati dal server PostgreSQL...</p>}
-            {errore && <p style={{ color: 'red' }}>{errore}</p>}
+            {errore && <p style={{color: 'red'}}>{errore}</p>}
 
             {/* Tabella Dati */}
             {!loading && !errore && (
                 <>
-                    <table border="1" cellPadding="10" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                    <table border="1" cellPadding="10"
+                           style={{width: '100%', borderCollapse: 'collapse', textAlign: 'left'}}>
                         <thead>
-                        <tr style={{ backgroundColor: '#f2f2f2', cursor: 'pointer' }}>
+                        <tr style={{backgroundColor: '#f2f2f2', cursor: 'pointer'}}>
                             <th onClick={() => gestisciOrdinamento('id')}>ID {orderBy === 'id' && (direzione === 'ASC' ? '🔼' : '🔽')}</th>
-                            <th onClick={() => gestisciOrdinamento('nome')}>Nome Prodotto {orderBy === 'nome' && (direzione === 'ASC' ? '🔼' : '🔽')}</th>
-                            <th onClick={() => gestisciOrdinamento('prezzo')}>Prezzo (€) {orderBy === 'prezzo' && (direzione === 'ASC' ? '🔼' : '🔽')}</th>
+                            <th onClick={() => gestisciOrdinamento('nome')}>Nome
+                                Prodotto {orderBy === 'nome' && (direzione === 'ASC' ? '🔼' : '🔽')}</th>
+                            {/* NUOVA COLONNA CATEGORIA */}
+                            <th onClick={() => gestisciOrdinamento('categoria.nome')}>Categoria {orderBy === 'categoria.nome' && (direzione === 'ASC' ? '🔼' : '🔽')}</th>
+                            <th onClick={() => gestisciOrdinamento('prezzo')}>Prezzo
+                                (€) {orderBy === 'prezzo' && (direzione === 'ASC' ? '🔼' : '🔽')}</th>
                             <th>Quantità Magazzino</th>
                             <th>Stato Disponibilità</th>
                         </tr>
@@ -112,19 +117,34 @@ export default function ListaProdotti() {
                         <tbody>
                         {prodotti.length === 0 ? (
                             <tr>
-                                <td colSpan="5" style={{ textAlign: 'center' }}>Nessun prodotto trovato.</td>
+                                <td colSpan="6" style={{textAlign: 'center'}}>Nessun prodotto trovato.</td>
+                                {/* Cambiato colSpan a 6 perché ora ci sono 6 colonne */}
                             </tr>
                         ) : (
                             prodotti.map((prodotto) => (
                                 <tr key={prodotto.id}>
                                     <td>{prodotto.id}</td>
                                     <td>{prodotto.nome}</td>
+
+                                    {/* NUOVO DATO MOSTRATO */}
+                                    <td>
+          <span style={{
+              backgroundColor: '#e1f5fe',
+              padding: '4px 8px',
+              borderRadius: '4px',
+              fontSize: '0.9em',
+              color: '#0288d1'
+          }}>
+            {prodotto.nomeCategoria}
+          </span>
+                                    </td>
+
                                     <td>{prodotto.prezzo.toFixed(2)} €</td>
                                     <td>{prodotto.quantita} unità</td>
                                     <td>
-                      <span style={{ color: prodotto.disponibile ? 'green' : 'red', fontWeight: 'bold' }}>
-                        {prodotto.disponibile ? 'Disponibile' : 'Esaurito'}
-                      </span>
+          <span style={{color: prodotto.disponibile ? 'green' : 'red', fontWeight: 'bold'}}>
+            {prodotto.disponibile ? 'Disponibile' : 'Esaurito'}
+          </span>
                                     </td>
                                 </tr>
                             ))
@@ -133,11 +153,17 @@ export default function ListaProdotti() {
                     </table>
 
                     {/* Controller della Paginazione */}
-                    <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                        marginTop: '20px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gap: '10px'
+                    }}>
                         <button
                             onClick={() => setPaginaCorrente(prev => Math.max(prev - 1, 0))}
                             disabled={paginaCorrente === 0}
-                            style={{ padding: '5px 10px' }}
+                            style={{padding: '5px 10px'}}
                         >
                             ⬅️ Precedente
                         </button>
@@ -147,7 +173,7 @@ export default function ListaProdotti() {
                         <button
                             onClick={() => setPaginaCorrente(prev => Math.min(prev + 1, totalePagine - 1))}
                             disabled={paginaCorrente >= totalePagine - 1}
-                            style={{ padding: '5px 10px' }}
+                            style={{padding: '5px 10px'}}
                         >
                             Successiva ➡️
                         </button>

@@ -12,7 +12,7 @@ import java.util.List;
 public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
 
 
-    /*
+
     // 💡 Spring Data JPA crea automaticamente le Query SQL analizzando il nome dei metodi (Derived Queries)!
 
     // Trova tutti i prodotti dove il campo 'disponibile' corrisponde al parametro passato
@@ -35,5 +35,5 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
     // ==================================================================================
 
 
-     */
+
 }

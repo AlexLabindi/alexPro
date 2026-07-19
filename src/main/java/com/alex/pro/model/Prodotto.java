@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 public class Prodotto {
 
 
-    /*
+
     @Id // 🔑 Campo Chiave Primaria (Primary Key)
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ⚙️ Auto-incremento gestito da PostgreSQL (SERIAL / BIGSERIAL)
     private Long id;
@@ -60,5 +60,5 @@ public class Prodotto {
     // ==================================================================================
 
 
-     */
+
 }
