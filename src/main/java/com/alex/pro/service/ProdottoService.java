@@ -11,6 +11,8 @@ import java.util.Optional;
 @Service // ⚙️ Marca la classe come strato di Logica Applicativa
 public class ProdottoService {
 
+
+    /*
     @Autowired // 💉 Inietta l'istanza del Repository generata automaticamente da Spring
     private ProdottoRepository prodottoRepository;
 
@@ -84,4 +86,7 @@ public class ProdottoService {
     //             .orElseThrow(() -> new RuntimeException("Prodotto non trovato con ID: " + id));
     // }
     // ==================================================================================
+
+
+     */
 }
