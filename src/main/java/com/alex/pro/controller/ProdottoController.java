@@ -17,6 +17,7 @@ import java.util.List;
 @RequestMapping("/api/prodotti") // 🛣️ Prefisso comune delle rotte
 @CrossOrigin(origins = "http://localhost:5173") // 🔌 Indispensabile per evitare blocchi CORS da React
 public class ProdottoController {
+    /*
 
     @Autowired
     private ProdottoService prodottoService;
@@ -141,4 +142,7 @@ public class ProdottoController {
     //     return ResponseEntity.ok(prodottoService.saveProdotto(prod));
     // }
     // ==================================================================================
+
+
+     */
 }

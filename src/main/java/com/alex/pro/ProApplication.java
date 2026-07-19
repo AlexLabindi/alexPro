@@ -16,6 +16,8 @@ public class ProApplication {
         SpringApplication.run(ProApplication.class, args);
     }
 
+
+
     /**
      * 💡 POPOLAZIONE AUTOMATICA DEL DATABASE ALL'AVVIO
      *
@@ -25,8 +27,12 @@ public class ProApplication {
      * Poiché in application.yml abbiamo 'ddl-auto: create-drop', ad ogni riavvio le tabelle
      * vengono ricreate vuote. Questo runner reinserisce subito dei dati di prova puliti!
      */
+
+    /*
     @Bean
     public CommandLineRunner initDatabase(ProdottoRepository repository) {
+
+
         return args -> {
             // Verifichiamo se il database è vuoto prima di inserire i dati di test
             if (repository.count() == 0) {
@@ -69,4 +75,6 @@ public class ProApplication {
             System.out.println("✅ Inseriti " + repository.count() + " prodotti di test!");
         }
     }
-}*/
+
+ */
+}

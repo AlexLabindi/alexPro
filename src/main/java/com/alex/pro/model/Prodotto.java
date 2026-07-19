@@ -17,6 +17,8 @@ import lombok.AllArgsConstructor;
 @Table(name = "prodotti") // 📌 (Opzionale) Personalizza il nome della tabella SQL
 public class Prodotto {
 
+
+    /*
     @Id // 🔑 Campo Chiave Primaria (Primary Key)
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ⚙️ Auto-incremento gestito da PostgreSQL (SERIAL / BIGSERIAL)
     private Long id;
@@ -56,4 +58,7 @@ public class Prodotto {
     //
     // private LocalDateTime dataCreazione = LocalDateTime.now();
     // ==================================================================================
+
+
+     */
 }

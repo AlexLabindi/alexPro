@@ -11,6 +11,8 @@ import java.util.List;
 @Repository // ⚙️ Componente Spring gestito dal container per le operazioni sul DB
 public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
 
+
+    /*
     // 💡 Spring Data JPA crea automaticamente le Query SQL analizzando il nome dei metodi (Derived Queries)!
 
     // Trova tutti i prodotti dove il campo 'disponibile' corrisponde al parametro passato
@@ -31,4 +33,7 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
     //
     // List<Prodotto> findByNomeContainingIgnoreCase(String nome);
     // ==================================================================================
+
+
+     */
 }
