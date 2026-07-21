@@ -1,6 +1,8 @@
 package com.alex.pro.service;
 
 import com.alex.pro.model.Libro;
+import com.alex.pro.repository.AutoreRepository;
+import com.alex.pro.repository.GenereRepository;
 import com.alex.pro.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,10 @@ public class LibroService {
 
     @Autowired
     private LibroRepository libroRepository;
+    @Autowired
+    private GenereRepository genereRepository;
+    @Autowired
+    private AutoreRepository autoreRepository;
 
 
     public List<Libro> getAllLibri() {
@@ -25,6 +31,7 @@ public class LibroService {
         return libroRepository.findById(id);
     }
 
+  
 
     /*
     // ----------------------------------------------------------------------------------

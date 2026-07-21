@@ -1,39 +1,47 @@
 package com.alex.pro.controller;
 
+import com.alex.pro.dto.LibroResponseDTO;
 import com.alex.pro.model.Libro;
 import com.alex.pro.service.LibroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/libri") // 🛣️ Prefisso comune delle rotte
-@CrossOrigin(origins = "http://localhost:5173") // 🔌 Indispensabile per evitare blocchi CORS da React
+@RequestMapping("/api/libri")
+@CrossOrigin(origins = "http://localhost:5173")
 public class LibroController {
 
     @Autowired
     private LibroService libroService;
 
-    // ----------------------------------------------------------------------------------
-    // 1. GET ALL: Restituisce la lista di tutti i prodotti (HTTP GET)
-    // ----------------------------------------------------------------------------------
+
     @GetMapping
-    public ResponseEntity<List<Libro>> getAllLibri() {
+    public ResponseEntity<List<LibroResponseDTO>> getAllLibri() {
         List<Libro> libri = libroService.getAllLibri();
-        return ResponseEntity.ok(libri); // Status Code 200 OK
+        List<LibroResponseDTO> responseDTOS =  new ArrayList<>();
+        for (Libro libro : libri) {
+            LibroResponseDTO responseDTO =  new LibroResponseDTO(libro.getTitolo(), libro.getDescrizione(),
+                    libro.getPrezzo(),libro.getAutore().getNome(),libro.getGenere().getNome());
+            responseDTOS.add(responseDTO);
+
+        }
+        return ResponseEntity.ok(responseDTOS);
     }
 
-    // ----------------------------------------------------------------------------------
-    // 2. GET BY ID: Restituisce un singolo elemento (HTTP GET)
-    // ----------------------------------------------------------------------------------
+
     @GetMapping("/{id}")
     public ResponseEntity<Libro> getLibroById(@PathVariable Long id) {
         return libroService.getLibroById(id)
                 .map(lib -> ResponseEntity.ok(lib))
                 .orElse(ResponseEntity.notFound().build());
     }
+
+
+
 /*
     // ----------------------------------------------------------------------------------
     // 3. CREATE: Crea un nuovo elemento dal Body della richiesta (HTTP POST)

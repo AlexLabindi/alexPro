@@ -11,7 +11,7 @@ function App() {
     // 💡 1. STATI (State Management)
     // ==================================================================================
     // Mantiene l'elenco dei prodotti recuperati dal backend
-    const [prodotti, setProdotti] = useState([])
+    const [libri, setLibri] = useState([])
 
     // Stati per la gestione del ciclo di vita della richiesta HTTP
     const [loading, setLoading] = useState(true)
@@ -19,26 +19,26 @@ function App() {
 
     // Stato per i campi del form di inserimento (Controlled Components)
     const [formData, setFormData] = useState({
-        nome: '',
+        titolo: '',
+        descrizione: '',
         prezzo: '',
-        quantita: ''
+        autore: '',
+        genere: ''
+
     })
 
     // URL Base delle API REST di Spring Boot
-    const API_URL = 'http://localhost:8090/api/prodotti'
+    const API_URL = 'http://localhost:8090/api/libri'
 
     // ==================================================================================
     // 🔄 2. CARICAMENTO INIZIALE (Read - GET)
     // ==================================================================================
-    /**
-     * useEffect con array di dipendenze vuoto [] viene eseguito UNA SOLA VOLTA
-     * al montaggio del componente (componentDidMount).
-     */
+
     useEffect(() => {
-        fetchProdotti()
+        fetchLibri()
     }, [])
 
-    const fetchProdotti = () => {
+    const fetchLibri = () => {
         setLoading(true)
         setError(null)
 
@@ -48,7 +48,7 @@ function App() {
                 return res.json()
             })
             .then(data => {
-                setProdotti(data)
+                setLibri(data)
                 setLoading(false)
             })
             .catch(err => {
@@ -79,11 +79,12 @@ function App() {
         }
 
         // Costruiamo l'oggetto da inviare corrispondente al Model Java
-        const nuovoProdotto = {
-            nome: formData.nome,
+        const nuovoLibro = {
+            titolo: formData.titolo,
+            descrizione: formData.descrizione,
             prezzo: parseFloat(formData.prezzo),
-            quantita: parseInt(formData.quantita) || 0,
-            disponibile: true
+            autore: formData.autore.nome,
+            genere: formData.genere.nome
         }
 
         fetch(API_URL, {
@@ -117,16 +118,13 @@ function App() {
             method: 'PATCH'
         })
             .then(res => {
-                if (!res.ok) throw new Error("Impossibile aggiornare lo stato del prodotto")
+                if (!res.ok) throw new Error("Impossibile aggiornare lo stato del libro")
                 return res.json()
             })
-            .then(prodottoAggiornato => {
-                /*
-                 * 💡 OTTIMIZZAZIONE REACT: Usiamo .map() per sostituire esclusivamente
-                 * l'oggetto modificato mantenendo inalterati gli altri.
-                 */
-                setProdotti(prev =>
-                    prev.map(p => p.id === id ? prodottoAggiornato : p)
+            .then(libroAggiornato => {
+
+                setLibri(prev =>
+                    prev.map(p => p.id === id ? libroAggiornato : p)
                 )
             })
             .catch(err => setError(err.message))
@@ -159,7 +157,7 @@ function App() {
             {/* HEADER */}
             <header className="mb-8 text-center">
                 <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight sm:text-4xl">
-                    📦 Gestionale Prodotti alexPro
+                     alexPro
                 </h1>
                 <p className="mt-2 text-slate-600">
                     Architettura Full-Stack di Riferimento (Spring Boot + React)
@@ -184,20 +182,35 @@ function App() {
                 {/* FORM DI INSERIMENTO (Colonna Sinistra) */}
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 h-fit">
                     <h2 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                        ➕ Nuovo Prodotto
+                        ➕ Nuovo Libro
                     </h2>
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
                             <label className="block text-xs font-bold text-slate-600 uppercase mb-1">
-                                Nome Prodotto *
+                                Nome Libro *
                             </label>
                             <input
                                 type="text"
-                                name="nome"
+                                name="titolo"
                                 value={formData.nome}
                                 onChange={handleInputChange}
                                 placeholder="Es. Tastiera Meccanica"
+                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-xs font-bold text-slate-600 uppercase mb-1">
+                                descrizione *
+                            </label>
+                            <input
+                                type="text"
+                                name="descrizione"
+                                value={formData.descrizione}
+                                onChange={handleInputChange}
+                                placeholder="dvsv"
                                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                 required
                             />
@@ -221,12 +234,26 @@ function App() {
 
                         <div>
                             <label className="block text-xs font-bold text-slate-600 uppercase mb-1">
-                                Quantità Iniziale
+                                autore id
                             </label>
                             <input
                                 type="number"
-                                name="quantita"
-                                value={formData.quantita}
+                                name="autore"
+                                value={formData.autore}
+                                onChange={handleInputChange}
+                                placeholder="0"
+                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-xs font-bold text-slate-600 uppercase mb-1">
+                                genere id
+                            </label>
+                            <input
+                                type="number"
+                                name="genere"
+                                value={formData.genere}
                                 onChange={handleInputChange}
                                 placeholder="0"
                                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -237,19 +264,19 @@ function App() {
                             type="submit"
                             className="w-full bg-blue-600 text-white font-bold py-2.5 rounded-lg hover:bg-blue-700 transition duration-200 cursor-pointer shadow-sm"
                         >
-                            Salva Prodotto
+                            Salva Libro
                         </button>
                     </form>
                 </div>
 
-                {/* TABELLA E LISTA PRODOTTI (Colonna Destra) */}
+                {/* TABELLA E LISTA Libri (Colonna Destra) */}
                 <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-xl font-bold text-slate-800">
-                            📋 Elenco Prodotti ({prodotti.length})
+                            📋 Elenco Libri ({libri.length})
                         </h2>
                         <button
-                            onClick={fetchProdotti}
+                            onClick={fetchLibri}
                             className="text-sm bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-3 py-1.5 rounded-lg transition"
                         >
                             🔄 Aggiorna
@@ -261,9 +288,9 @@ function App() {
                             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                             <p className="mt-2 text-slate-500 text-sm">Caricamento in corso...</p>
                         </div>
-                    ) : prodotti.length === 0 ? (
+                    ) : libri.length === 0 ? (
                         <div className="text-center py-12 bg-slate-50 rounded-xl border border-dashed border-slate-200">
-                            <p className="text-slate-400">Nessun prodotto presente nel Database.</p>
+                            <p className="text-slate-400">Nessun libro presente nel Database.</p>
                         </div>
                     ) : (
                         <div className="overflow-x-auto">
@@ -271,18 +298,22 @@ function App() {
                                 <thead>
                                 <tr className="border-b border-slate-200 text-xs font-bold text-slate-500 uppercase">
                                     <th className="py-3 px-2">ID</th>
-                                    <th className="py-3 px-2">Nome</th>
-                                    <th className="py-3 px-2">Prezzo</th>
-                                    <th className="py-3 px-2 text-center">Stato</th>
-                                    <th className="py-3 px-2 text-right">Azioni</th>
+                                    <th className="py-3 px-2">Titolo</th>
+                                    <th className="py-3 px-2">Descrizione</th>
+                                    <th className="py-3 px-2 text-center">Prezzo</th>
+                                    <th className="py-3 px-2 text-right">Autore</th>
+                                    <th className="py-3 px-2 text-right">Genere</th>
                                 </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100 text-sm">
-                                {prodotti.map((p) => (
+                                {libri.map((p) => (
                                     <tr key={p.id} className="hover:bg-slate-50/50 transition">
                                         <td className="py-3 px-2 font-mono text-slate-400">#{p.id}</td>
-                                        <td className="py-3 px-2 font-semibold text-slate-800">{p.nome}</td>
+                                        <td className="py-3 px-2 font-semibold text-slate-800">{p.titolo}</td>
+                                        <td className="py-3 px-2 font-semibold text-slate-800">{p.descrizione}</td>
                                         <td className="py-3 px-2 font-bold text-slate-700">€ {p.prezzo?.toFixed(2)}</td>
+                                        <td className="py-3 px-2 font-semibold text-slate-800">{p.autore}</td>
+                                        <td className="py-3 px-2 font-semibold text-slate-800">{p.genere}</td>
 
                                         {/* Badge di Stato Cliccabile */}
                                         <td className="py-3 px-2 text-center">
