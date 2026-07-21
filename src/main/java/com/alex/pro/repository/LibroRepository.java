@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository // ⚙️ Componente Spring gestito dal container per le operazioni sul DB
+@Repository
 public interface LibroRepository extends JpaRepository<Libro, Long> {
 
    // List<Libro> findLibrosByTitolo(String titolo, Sort sort);

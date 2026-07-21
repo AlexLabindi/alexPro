@@ -15,12 +15,10 @@ import java.util.List;
 public class Genere {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ⚙️ Auto-incremento gestito da PostgreSQL (SERIAL / BIGSERIAL)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ----------------------------------------------------------------------------------
-    // CAMPI DELL'ENTITÀ
-    // ----------------------------------------------------------------------------------
+
 
     @Column(nullable = false)
     private String nome;

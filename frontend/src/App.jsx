@@ -1,23 +1,15 @@
 import { useState, useEffect } from 'react'
-/*1. Cambio dei Nomi dei Campi del Form
-Se l'entità è ad esempio Studente con campi nome, matricola, email:
 
-Aggiorna lo stato formData: { nome: '', matricola: '', email: '' }.
-
-Nel Form HTML, assicurati che la proprietà name="" di ogni <input> corrisponda esattamente al nome della variabile nell'oggetto JavaScript e nel Model Java (name="matricola").*/
 
 function App() {
-    // ==================================================================================
-    // 💡 1. STATI (State Management)
-    // ==================================================================================
-    // Mantiene l'elenco dei prodotti recuperati dal backend
+
     const [libri, setLibri] = useState([])
 
-    // Stati per la gestione del ciclo di vita della richiesta HTTP
+
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
-    // Stato per i campi del form di inserimento (Controlled Components)
+
     const [formData, setFormData] = useState({
         titolo: '',
         descrizione: '',
@@ -27,12 +19,9 @@ function App() {
 
     })
 
-    // URL Base delle API REST di Spring Boot
+
     const API_URL = 'http://localhost:8090/api/libri'
 
-    // ==================================================================================
-    // 🔄 2. CARICAMENTO INIZIALE (Read - GET)
-    // ==================================================================================
 
     useEffect(() => {
         fetchLibri()
@@ -151,6 +140,8 @@ function App() {
     // ==================================================================================
     // 🎨 6. RENDERING INTERFACCIA (JSX)
     // ==================================================================================
+
+
     return (
         <div className="max-w-5xl mx-auto px-4 py-8 font-sans">
 
@@ -160,7 +151,7 @@ function App() {
                      alexPro
                 </h1>
                 <p className="mt-2 text-slate-600">
-                    Architettura Full-Stack di Riferimento (Spring Boot + React)
+                   LIBRERIA
                 </p>
             </header>
 
@@ -180,94 +171,7 @@ function App() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                 {/* FORM DI INSERIMENTO (Colonna Sinistra) */}
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 h-fit">
-                    <h2 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                        ➕ Nuovo Libro
-                    </h2>
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
-                            <label className="block text-xs font-bold text-slate-600 uppercase mb-1">
-                                Nome Libro *
-                            </label>
-                            <input
-                                type="text"
-                                name="titolo"
-                                value={formData.nome}
-                                onChange={handleInputChange}
-                                placeholder="Es. Tastiera Meccanica"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-xs font-bold text-slate-600 uppercase mb-1">
-                                descrizione *
-                            </label>
-                            <input
-                                type="text"
-                                name="descrizione"
-                                value={formData.descrizione}
-                                onChange={handleInputChange}
-                                placeholder="dvsv"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-xs font-bold text-slate-600 uppercase mb-1">
-                                Prezzo (€) *
-                            </label>
-                            <input
-                                type="number"
-                                step="0.01"
-                                name="prezzo"
-                                value={formData.prezzo}
-                                onChange={handleInputChange}
-                                placeholder="0.00"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-xs font-bold text-slate-600 uppercase mb-1">
-                                autore id
-                            </label>
-                            <input
-                                type="number"
-                                name="autore"
-                                value={formData.autore}
-                                onChange={handleInputChange}
-                                placeholder="0"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-xs font-bold text-slate-600 uppercase mb-1">
-                                genere id
-                            </label>
-                            <input
-                                type="number"
-                                name="genere"
-                                value={formData.genere}
-                                onChange={handleInputChange}
-                                placeholder="0"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                            />
-                        </div>
-
-                        <button
-                            type="submit"
-                            className="w-full bg-blue-600 text-white font-bold py-2.5 rounded-lg hover:bg-blue-700 transition duration-200 cursor-pointer shadow-sm"
-                        >
-                            Salva Libro
-                        </button>
-                    </form>
-                </div>
 
                 {/* TABELLA E LISTA Libri (Colonna Destra) */}
                 <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">

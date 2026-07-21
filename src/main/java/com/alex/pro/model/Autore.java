@@ -10,19 +10,16 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity // 🔑 Indica a Spring JPA che questa classe corrisponde a una TABELLA del Database
-@Table(name = "autore")
+@Entity
 public class Autore {
 
-    @Id // 🔑 Campo Chiave Primaria (Primary Key)
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ⚙️ Auto-incremento gestito da PostgreSQL (SERIAL / BIGSERIAL)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ----------------------------------------------------------------------------------
-    // CAMPI DELL'ENTITÀ
-    // ----------------------------------------------------------------------------------
 
-    @Column(nullable = false) // 🛑 Rendiamo il campo obbligatorio a livello di DB (NOT NULL)
+
+    @Column(nullable = false)
     private String nome;
     @Column(nullable = false)
     private String cognome;

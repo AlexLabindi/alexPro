@@ -44,33 +44,33 @@ public class ProApplication {
 
                 System.out.println("🌱 Popolamento iniziale del Database in corso...");
                 Autore a1 = new Autore();
-                a1.setNome("sdvs");
+                a1.setNome("Glee coper");
                 a1.setCognome("fdvbdb");
                 Genere t1 = new Genere();
-                t1.setNome("blood");
+                t1.setNome("Horror");
                 Libro p1 = new Libro(null, "bib dei mortri", "dvnsvnlskfdv", 12.12, a1, t1);
 
                 Autore a2 = new Autore();
-                a2.setNome("sdvs");
+                a2.setNome("Giorgio Faletti");
                 a2.setCognome("fdvbdb");
                 Genere t2 = new Genere();
-                t2.setNome("blood");
-                Libro p2 = new Libro(null,"non solo occhi ", "dvnsvnlskfdv",13.12, a2, t2);
+                t2.setNome("Poliziesco");
+                Libro p2 = new Libro(null,"tutto tranne gl'occhi ", "dvnsvnlskfdv",13.12, a2, t2);
 
 
                 Autore a3 = new Autore();
-                a3.setNome("sdvs");
+                a3.setNome("Stephen King");
                 a3.setCognome("fdvbdb");
                 Genere t3 = new Genere();
-                t3.setNome("blood");
-                Libro p3 = new Libro(null,"scorpione", "dvnsvnlskfdv",13.12, a3, t3);
+                t3.setNome("Horror");
+                Libro p3 = new Libro(null,"L'ombra dello scorpione", "dvnsvnlskfdv",13.12, a3, t3);
 
                 Autore a4 = new Autore();
-                a4.setNome("sdvs");
+                a4.setNome(" Douglas Adams");
                 a4.setCognome("fdvbdb");
                 Genere t4 = new Genere();
-                t4.setNome("blood");
-                Libro p4 = new Libro(null, "guida galattica", "dvnsvnlskfdv",15.12, a4, t4);
+                t4.setNome("Romanzo");
+                Libro p4 = new Libro(null, "guida galattica x autostoppuisti", "dvnsvnlskfdv",15.12, a4, t4);
 
 
 
