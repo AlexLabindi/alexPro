@@ -13,37 +13,38 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity // 🔑 Indica a Spring JPA che questa classe corrisponde a una TABELLA del Database
-@Table(name = "libri") // 📌 (Opzionale) Personalizza il nome della tabella SQL
+@Entity
+@Table(name = "libri")
 public class Libro {
 
 
 
-    @Id // 🔑 Campo Chiave Primaria (Primary Key)
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ⚙️ Auto-incremento gestito da PostgreSQL (SERIAL / BIGSERIAL)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // ----------------------------------------------------------------------------------
     // CAMPI DELL'ENTITÀ
     // ----------------------------------------------------------------------------------
 
-    @Column(nullable = false) // 🛑 Rendiamo il campo obbligatorio a livello di DB (NOT NULL)
+    @Column(nullable = false)
     private String titolo;
 
     private String descrizione;
 
     private Double prezzo; // Usiamo le Wrapper Class (Double, Integer) invece dei primitivi per gestire i null
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "autore_id")
     private Autore autore;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "genere_id")
     private Genere genere;
 
 
-    /*
+
+   /*
     // ==================================================================================
     // 🛠️ CASI DI MODIFICA ALL'ESAME:
     //

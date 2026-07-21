@@ -5,14 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity // 🔑 Indica a Spring JPA che questa classe corrisponde a una TABELLA del Database
+@Entity
 @Table(name = "genere")
 public class Genere {
 
-    @Id // 🔑 Campo Chiave Primaria (Primary Key)
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ⚙️ Auto-incremento gestito da PostgreSQL (SERIAL / BIGSERIAL)
     private Long id;
 
@@ -20,6 +22,11 @@ public class Genere {
     // CAMPI DELL'ENTITÀ
     // ----------------------------------------------------------------------------------
 
-    @Column(nullable = false) // 🛑 Rendiamo il campo obbligatorio a livello di DB (NOT NULL)
+    @Column(nullable = false)
     private String nome;
+
+    @OneToMany(mappedBy = "genere", cascade = CascadeType.ALL)
+    private List<Libro> libri;
+
+
 }

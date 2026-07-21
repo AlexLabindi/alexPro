@@ -8,17 +8,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service // ⚙️ Marca la classe come strato di Logica Applicativa
+@Service
 public class LibroService {
 
 
 
-    @Autowired // 💉 Inietta l'istanza del Repository generata automaticamente da Spring
+    @Autowired
     private LibroRepository libroRepository;
 
-    // ----------------------------------------------------------------------------------
-    // READ (Lettura globale e per ID)
-    // ----------------------------------------------------------------------------------
+
     public List<Libro> getAllLibri() {
         return libroRepository.findAll();
     }

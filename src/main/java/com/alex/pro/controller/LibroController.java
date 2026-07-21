@@ -13,9 +13,6 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173") // 🔌 Indispensabile per evitare blocchi CORS da React
 public class LibroController {
 
-
-
-
     @Autowired
     private LibroService libroService;
 
@@ -34,8 +31,8 @@ public class LibroController {
     @GetMapping("/{id}")
     public ResponseEntity<Libro> getLibroById(@PathVariable Long id) {
         return libroService.getLibroById(id)
-                .map(lib -> ResponseEntity.ok(lib)) // 200 OK se trovato
-                .orElse(ResponseEntity.notFound().build()); // 404 Not Found se non esiste
+                .map(lib -> ResponseEntity.ok(lib))
+                .orElse(ResponseEntity.notFound().build());
     }
 /*
     // ----------------------------------------------------------------------------------
