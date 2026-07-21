@@ -1,49 +1,50 @@
 package com.alex.pro.controller;
 
-import com.alex.pro.model.Prodotto;
-import com.alex.pro.service.ProdottoService;
+import com.alex.pro.model.Libro;
+import com.alex.pro.service.LibroService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController // ⚙️ Risponde automaticamente serializzando i dati in formato JSON
-@RequestMapping("/api/prodotti") // 🛣️ Prefisso comune delle rotte
+@RestController
+@RequestMapping("/api/libri") // 🛣️ Prefisso comune delle rotte
 @CrossOrigin(origins = "http://localhost:5173") // 🔌 Indispensabile per evitare blocchi CORS da React
-public class ProdottoController {
-    /*
+public class LibroController {
+
+
+
 
     @Autowired
-    private ProdottoService prodottoService;
+    private LibroService libroService;
 
     // ----------------------------------------------------------------------------------
     // 1. GET ALL: Restituisce la lista di tutti i prodotti (HTTP GET)
     // ----------------------------------------------------------------------------------
     @GetMapping
-    public ResponseEntity<List<Prodotto>> getAllProdotti() {
-        List<Prodotto> prodotti = prodottoService.getAllProdotti();
-        return ResponseEntity.ok(prodotti); // Status Code 200 OK
+    public ResponseEntity<List<Libro>> getAllLibri() {
+        List<Libro> libri = libroService.getAllLibri();
+        return ResponseEntity.ok(libri); // Status Code 200 OK
     }
 
     // ----------------------------------------------------------------------------------
     // 2. GET BY ID: Restituisce un singolo elemento (HTTP GET)
     // ----------------------------------------------------------------------------------
     @GetMapping("/{id}")
-    public ResponseEntity<Prodotto> getProdottoById(@PathVariable Long id) {
-        return prodottoService.getProdottoById(id)
-                .map(prod -> ResponseEntity.ok(prod)) // 200 OK se trovato
+    public ResponseEntity<Libro> getLibroById(@PathVariable Long id) {
+        return libroService.getLibroById(id)
+                .map(lib -> ResponseEntity.ok(lib)) // 200 OK se trovato
                 .orElse(ResponseEntity.notFound().build()); // 404 Not Found se non esiste
     }
-
+/*
     // ----------------------------------------------------------------------------------
     // 3. CREATE: Crea un nuovo elemento dal Body della richiesta (HTTP POST)
     // ----------------------------------------------------------------------------------
     @PostMapping
     public ResponseEntity<Prodotto> createProdotto(@RequestBody Prodotto nuovoProdotto) {
         // @RequestBody converte automaticamente il JSON ricevuto dal frontend in un oggetto Java
-        Prodotto prodottoSalvato = prodottoService.saveProdotto(nuovoProdotto);
+        Prodotto prodottoSalvato = libroService.saveProdotto(nuovoProdotto);
         return ResponseEntity.status(HttpStatus.CREATED).body(prodottoSalvato); // Status Code 201 Created
     }
 
@@ -52,7 +53,7 @@ public class ProdottoController {
     // ----------------------------------------------------------------------------------
     @PutMapping("/{id}")
     public ResponseEntity<Prodotto> updateProdotto(@PathVariable Long id, @RequestBody Prodotto dettagliAggiornati) {
-        return prodottoService.getProdottoById(id)
+        return libroService.getProdottoById(id)
                 .map(prodEsistente -> {
                     // Aggiorniamo i campi dell'oggetto esistente con i nuovi dati
                     prodEsistente.setNome(dettagliAggiornati.getNome());
@@ -60,7 +61,7 @@ public class ProdottoController {
                     prodEsistente.setQuantita(dettagliAggiornati.getQuantita());
                     prodEsistente.setDisponibile(dettagliAggiornati.getDisponibile());
 
-                    Prodotto salvato = prodottoService.saveProdotto(prodEsistente);
+                    Prodotto salvato = libroService.saveProdotto(prodEsistente);
                     return ResponseEntity.ok(salvato);
                 })
                 .orElse(ResponseEntity.notFound().build());
@@ -72,7 +73,7 @@ public class ProdottoController {
     @PatchMapping("/{id}/stato")
     public ResponseEntity<Prodotto> cambiaStato(@PathVariable Long id, @RequestParam Boolean disponibile) {
         // Esempio URL: PATCH http://localhost:8090/api/prodotti/5/stato?disponibile=false
-        return prodottoService.cambiaDisponibilita(id, disponibile)
+        return libroService.cambiaDisponibilita(id, disponibile)
                 .map(prod -> ResponseEntity.ok(prod))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -82,7 +83,7 @@ public class ProdottoController {
     // ----------------------------------------------------------------------------------
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProdotto(@PathVariable Long id) {
-        if (prodottoService.deleteProdotto(id)) {
+        if (libroService.deleteProdotto(id)) {
             return ResponseEntity.noContent().build(); // Status Code 204 No Content (cancellazione avvenuta)
         }
         return ResponseEntity.notFound().build(); // 404 se l'ID non è stato trovato

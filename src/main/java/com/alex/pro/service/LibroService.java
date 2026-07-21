@@ -1,7 +1,7 @@
 package com.alex.pro.service;
 
-import com.alex.pro.model.Prodotto;
-import com.alex.pro.repository.ProdottoRepository;
+import com.alex.pro.model.Libro;
+import com.alex.pro.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,24 +9,26 @@ import java.util.List;
 import java.util.Optional;
 
 @Service // ⚙️ Marca la classe come strato di Logica Applicativa
-public class ProdottoService {
+public class LibroService {
 
 
-    /*
+
     @Autowired // 💉 Inietta l'istanza del Repository generata automaticamente da Spring
-    private ProdottoRepository prodottoRepository;
+    private LibroRepository libroRepository;
 
     // ----------------------------------------------------------------------------------
     // READ (Lettura globale e per ID)
     // ----------------------------------------------------------------------------------
-    public List<Prodotto> getAllProdotti() {
-        return prodottoRepository.findAll();
+    public List<Libro> getAllLibri() {
+        return libroRepository.findAll();
     }
 
-    public Optional<Prodotto> getProdottoById(Long id) {
-        return prodottoRepository.findById(id);
+    public Optional<Libro> getProdottoById(Long id) {
+        return libroRepository.findById(id);
     }
 
+
+    /*
     // ----------------------------------------------------------------------------------
     // CREATE / UPDATE STANDARD
     // ----------------------------------------------------------------------------------

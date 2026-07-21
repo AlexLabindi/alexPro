@@ -1,20 +1,19 @@
 package com.alex.pro.repository;
 
-import com.alex.pro.model.Prodotto;
+import com.alex.pro.model.Libro;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository // ⚙️ Componente Spring gestito dal container per le operazioni sul DB
-public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
+public interface LibroRepository extends JpaRepository<Libro, Long> {
 
 
-    /*
     // 💡 Spring Data JPA crea automaticamente le Query SQL analizzando il nome dei metodi (Derived Queries)!
 
     // Trova tutti i prodotti dove il campo 'disponibile' corrisponde al parametro passato
-    List<Prodotto> findByDisponibile(Boolean disponibile);
+    List<Libro> findByDisponibile(Boolean disponibile);
 
     // ==================================================================================
     // 🛠️ CASI DI MODIFICA ALL'ESAME:
@@ -26,9 +25,9 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
     //
     // CASO B: Ricerca testuale parziale (Ignorando Maiuscole/Minuscole)
     //
-    // List<Prodotto> findByNomeContainingIgnoreCase(String nome);
+     List<Libro> findByNomeContainingIgnoreCase(String nome);
     // ==================================================================================
 
 
-     */
+
 }
